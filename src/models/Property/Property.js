@@ -10,18 +10,18 @@ const propertySchema = new mongoose.Schema(
             type: String,
             enum: ['available', 'under_review', 'sold', 'rented', 'inactive'],
             default: 'available',
-        }, // Property status
-        tags: [{ type: String, maxlength: 50 }], // Custom tags (e.g., "luxury", "new")
+        }, 
+        tags: [{ type: String, maxlength: 50 }],
         location: {
             address: { type: String, required: true, maxlength: 200 },
             city: { type: String, required: true, maxlength: 100 },
             state: { type: String, required: true, maxlength: 100 },
             zipCode: { type: String, required: true, maxlength: 20 },
             country: { type: String, required: true, maxlength: 100 },
-        }, // Nested location object
-        images: [{ type: String }], // URLs for property images
-        assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Assigned user (Supervisor/Staff)
-        createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Creator of the property
+        },
+        images: [{ type: String }],
+        assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
+        createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
     },
     { timestamps: true }
 );

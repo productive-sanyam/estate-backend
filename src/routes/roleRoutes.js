@@ -1,5 +1,5 @@
 const express = require('express');
-const { createRole, updateRole, getRole, deleteRole } = require('../controllers/roleController');
+const { createRole, updateRole, getRole, deleteRole } = require('../controllers/role/roleController');
 
 const router = express.Router();
 

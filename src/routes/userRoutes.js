@@ -1,3 +1,5 @@
+// File: routes/userRoutes.js
+
 const express = require('express');
 const {
     createUser,
@@ -5,14 +7,14 @@ const {
     getUserById,
     updateUser,
     deleteUser,
-} = require('../controllers/userController');
+} = require('../controllers//user/userController');
 
 const router = express.Router();
 
 // Create a new user
 router.post('/', createUser);
 
-// Get all users
+// Get all users (supports pagination & filter)
 router.get('/', getUsers);
 
 // Get a single user by ID
