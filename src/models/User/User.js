@@ -1,5 +1,4 @@
 // File: models/User.js
-
 const mongoose = require('mongoose');
 
 // Sub-schema for phoneNo (no _id)
@@ -18,16 +17,14 @@ const userSchema = new mongoose.Schema(
         password: { type: String, required: true }, // Hashed password
         phoneNo: phoneSchema,
         address: { type: String, maxlength: 200 },
-        // Link to role if you need
-        // role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role' },
-        // createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        // ... any other fields
     },
     {
-        // Replace timestamps with integer time
+        // Use 10-digit timestamps (seconds since epoch)
         timestamps: {
-            currentTime: () => Math.floor(Date.now()) // milliseconds since epoch
+            currentTime: () => Math.floor(Date.now() / 1000)
         },
-        versionKey: 'version' // renames __v to version
+        versionKey: 'version'
     }
 );
 

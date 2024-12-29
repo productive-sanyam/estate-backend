@@ -1,20 +1,17 @@
 // File: utils/paginationUtils.js
 
-async function getPaginatedAndFilteredData(Model, filter, page, rows) {
-    // Convert to integers
+async function getPaginatedAndFilteredData(Model, filter, page = 1, rows = 5) {
     const pageNum = parseInt(page, 10) || 1;
     const rowsNum = parseInt(rows, 10) || 5;
 
-    // If rows = -1 => return all data
+    // If rows = -1 => return all
     const limit = rowsNum === -1 ? 0 : rowsNum;
-    const skip = (pageNum - 1) * limit;
+    const skip = (pageNum - 1) * rowsNum;
 
-    // total documents matching filter
     const total = await Model.countDocuments(filter);
 
     let data = [];
     if (limit === 0) {
-        // return all
         data = await Model.find(filter);
     } else {
         data = await Model.find(filter).skip(skip).limit(limit);
@@ -23,7 +20,7 @@ async function getPaginatedAndFilteredData(Model, filter, page, rows) {
     return {
         total,
         page: pageNum,
-        rows: data,
+        rows: data
     };
 }
 

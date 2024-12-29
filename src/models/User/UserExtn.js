@@ -1,22 +1,21 @@
 // File: models/UserExtn.js
-
 const mongoose = require('mongoose');
 
 const userExtnSchema = new mongoose.Schema(
     {
-        // We reference the same _id as the user
         _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        profilePic: { type: String },
-        lastActive: { type: Number }, 
+        profilePic: { type: String, maxlength: 200 },
+        viewOwnEntityOnly: { type: Boolean, default: false },
+        lastActive: { type: Number }, // store as 10-digit integer if needed
         designation: { type: String, maxlength: 100 },
         department: { type: String, maxlength: 100 },
+        // ... any other fields
     },
     {
         timestamps: {
-            currentTime: () => Math.floor(Date.now())
+            currentTime: () => Math.floor(Date.now() / 1000)
         },
-        versionKey: 'version',
-        _id: false
+        versionKey: 'version'
     }
 );
 
