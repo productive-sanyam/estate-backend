@@ -1,9 +1,13 @@
-const BaseService = require('./../../services/baseService');
+const BaseService = require('../../services/baseService');
 const User = require('./User');
 const UserExtn = require('./UserExtn');
 const bcrypt = require('bcrypt');
 
 class UserService extends BaseService {
+    constructor() {
+        super(User, UserExtn);
+    }
+
     async createUserAndExtn(userData) {
         const { email, password, userExtn } = userData;
 
@@ -16,18 +20,20 @@ class UserService extends BaseService {
 
         const newUser = await this.create({
             ...userData,
-            password: hashedPassword
+            password: hashedPassword,
         });
 
         if (userExtn) {
             const extnData = {
                 _id: newUser._id,
-                ...userExtn
+                ...userExtn,
             };
             await UserExtn.create(extnData);
         }
 
-        return newUser;
+
+        const userWithExtn = await this.getUserById(newUser._id);
+        return userWithExtn;
     }
 
     async login(email, password) {
@@ -51,46 +57,34 @@ class UserService extends BaseService {
         const extn = await UserExtn.findById(id).lean();
         return {
             ...user,
-            userExtn: extn || null
+            userExtn: extn || null,
         };
     }
 
     async updateUser(id, data) {
-        const { userExtn, version: reqUserVersion, ...userData } = data;
-        delete userData.createdAt;
-        delete userData.updatedAt;
-        delete userData.version;
+        const { userExtn, password, version, ...rest } = data;
 
-        // If password given, hash it
-        if (userData.password) {
-            userData.password = await bcrypt.hash(userData.password, 10);
+        if (password) {
+            rest.password = await bcrypt.hash(password, 10);
         }
 
-        const currentUser = await this.findByIdAndCheckVersion(id, reqUserVersion, 'User not found');
-
-        Object.assign(currentUser, userData);
-
-        const updatedUser = await currentUser.save();
+        const payload = {
+            ...rest,           
+            version,          
+            extnData: null,
+        };
 
         if (userExtn) {
-            const { version: reqExtnVersion, ...extnData } = userExtn;
-            delete extnData.createdAt;
-            delete extnData.updatedAt;
-            delete extnData.version;
-
-            let currentExtn = await UserExtn.findById(id);
-            if (!currentExtn) {
-                currentExtn = new UserExtn({ _id: id });
-            } else {
-                if (reqExtnVersion === undefined || reqExtnVersion !== currentExtn.version) {
-                    throw new Error('You are trying to update a record that has changed (extn)');
-                }
-            }
-            Object.assign(currentExtn, extnData);
-            await currentExtn.save();
+            const { version: extnVersion, ...extnFields } = userExtn;
+            payload.extnData = {
+                version: extnVersion, 
+                ...extnFields,
+            };
         }
 
-        return updatedUser;
+        const updatedUser = await this.updateRecord(id, payload);
+        const userWithExtn = await this.getUserById(id);
+        return userWithExtn;
     }
 
     async deleteUser(id) {
@@ -98,9 +92,17 @@ class UserService extends BaseService {
         if (!deletedUser) {
             throw new Error('User not found');
         }
-        await UserExtn.findByIdAndDelete(id);
+
+        if (this.ExtnModel) {
+            await this.ExtnModel.findByIdAndDelete(id);
+        }
         return deletedUser;
+    }
+
+    async deleteAllUsers() {
+        const deleted = await this.deleteAll();
+        return deleted;
     }
 }
 
-module.exports = new UserService(User);
+module.exports = new UserService();

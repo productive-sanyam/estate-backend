@@ -1,7 +1,18 @@
+// validationSchemas.js (or wherever you store validation)
 const Joi = require('joi');
 
-// For creating/updating main User
-const userSchema = Joi.object({
+// User extension schema
+const userExtnSchema = Joi.object({
+    profilePic: Joi.string().max(200).optional(),
+    viewOwnEntityOnly: Joi.boolean().optional(),
+    lastActive: Joi.number().optional(),
+    designation: Joi.string().max(100).optional(),
+    department: Joi.string().max(100).optional(),
+});
+
+// A combined schema if you want to handle both in one request
+const combinedUserSchema = Joi.object({
+    // main user fields
     name: Joi.string().max(100).required(),
     email: Joi.string().email().max(100).required(),
     password: Joi.string().min(6).required(),
@@ -9,21 +20,10 @@ const userSchema = Joi.object({
         countryCode: Joi.number().required(),
         phone: Joi.number().required()
     }),
-    address: Joi.string().max(200).optional(),
-    // ... any additional fields
-});
-
-// For creating/updating UserExtn
-const userExtnSchema = Joi.object({
-    profilePic: Joi.string().max(200).optional(),
-    viewOwnEntityOnly: Joi.boolean().optional(),
-    lastActive: Joi.number().optional(),
-    designation: Joi.string().max(100).optional(),
-    department: Joi.string().max(100).optional(),
-    // ... any additional fields
+    userExtn: userExtnSchema.optional(),
 });
 
 module.exports = {
-    userSchema,
-    userExtnSchema
+    userExtnSchema,
+    combinedUserSchema
 };

@@ -35,10 +35,11 @@ const userSchema = new mongoose.Schema(
         updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
     },
     {
+        versionKey: 'version',
+        optimisticConcurrency: true,
         timestamps: {
             currentTime: () => Math.floor(Date.now() / 1000)
-        },
-        versionKey: 'version'
+        }
     }
 );
 

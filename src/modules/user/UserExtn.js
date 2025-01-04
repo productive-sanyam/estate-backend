@@ -11,10 +11,11 @@ const userExtnSchema = new mongoose.Schema(
         department: { type: String, maxlength: 100 }
     },
     {
+        versionKey: 'version',
+        optimisticConcurrency: true,
         timestamps: {
             currentTime: () => Math.floor(Date.now() / 1000)
-        },
-        versionKey: 'version' // track concurrency
+        }
     }
 );
 
