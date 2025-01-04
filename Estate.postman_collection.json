@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "ffb79382-4366-47b9-9caa-3fe49263c047",
+		"name": "Estate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27979189",
+		"_collection_link": "https://gold-trinity-770590.postman.co/workspace/Ondato~2a24de5c-5872-4024-9615-b51086827bbe/collection/27979189-ffb79382-4366-47b9-9caa-3fe49263c047?action=share&source=collection_link&creator=27979189"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc4Zjc3YWY4MmU0MWVhNWE1NmJmNjgiLCJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE3MzU5ODEwMjIsImV4cCI6MTczNjA2NzQyMn0.udEyURGpxtUqHWH07iGqWZjwdpSrQPf36pcE2v3R2d4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <ADMIN_TOKEN>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Smith\",\n  \"email\": \"john+4@gmail.com\",\n  \"password\": \"password\",\n//   \"roles\": [\"USER\"],\n  \"phoneNo\": {\n    \"countryCode\": 65,\n    \"phone\": 12345678\n  },\n  \"address\": {\n    \"city\": \"Singapore\",\n    \"state\": \"Singapore\",\n    \"country\": \"SG\",\n    \"pinCode\": \"049315\",\n    \"street\": \"10 Collyer Quay\",\n    \"buildingNumber\": \"29-06\"\n  },\n  \"userExtn\": {\n    \"profilePic\": \"https://example.com/img.jpg\",\n    \"designation\": \"Engineer 1\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc4Zjc3YWY4MmU0MWVhNWE1NmJmNjgiLCJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE3MzU5ODEwMjIsImV4cCI6MTczNjA2NzQyMn0.udEyURGpxtUqHWH07iGqWZjwdpSrQPf36pcE2v3R2d4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <ADMIN_TOKEN>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/users?page=1&rows=20&withExtn=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rows",
+									"value": "20"
+								},
+								{
+									"key": "withExtn",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc4Zjc3YWY4MmU0MWVhNWE1NmJmNjgiLCJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE3MzU5ODEwMjIsImV4cCI6MTczNjA2NzQyMn0.udEyURGpxtUqHWH07iGqWZjwdpSrQPf36pcE2v3R2d4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/677984b3f430902db15f744d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"677984b3f430902db15f744d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc4Zjc3YWY4MmU0MWVhNWE1NmJmNjgiLCJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE3MzU5ODEwMjIsImV4cCI6MTczNjA2NzQyMn0.udEyURGpxtUqHWH07iGqWZjwdpSrQPf36pcE2v3R2d4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"sanyam Doe\",\n    \"version\": 1,\n    \"userExtn\": {\n        \"designation\": \"Engineer 2\",\n        \"version\": 1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/677988aa6a220de7921445aa",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"677988aa6a220de7921445aa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc4Zjc3YWY4MmU0MWVhNWE1NmJmNjgiLCJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE3MzU5ODEwMjIsImV4cCI6MTczNjA2NzQyMn0.udEyURGpxtUqHWH07iGqWZjwdpSrQPf36pcE2v3R2d4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <ADMIN_TOKEN>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Property",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <YOUR_JWT_TOKEN>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Luxury Apartment\",\n  \"description\": \"A beautiful apartment in the city center.\",\n  \"price\": 500000,\n  \"address\": {\n    \"street\": \"123 Main Street\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"zipCode\": \"10001\",\n    \"country\": \"USA\"\n  },\n  \"bedrooms\": 3,\n  \"bathrooms\": 2,\n  \"sqft\": 1500,\n  \"status\": \"Available\",\n  \"assignedTo\": [\"<USER_ID_1>\", \"<USER_ID_2>\"],\n  \"propertyExtn\": {\n    \"additionalFeatures\": [\"Pool\", \"Gym\"],\n    \"virtualTourUrl\": \"https://example.com/virtualtour\",\n    \"floorPlans\": [\"https://example.com/floorplan1\", \"https://example.com/floorplan2\"]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/property",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"property"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <YOUR_JWT_TOKEN>"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5001/api/property",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"property"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <YOUR_JWT_TOKEN>"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5001/api/property/<PROPERTY_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"property",
+								"<PROPERTY_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer <YOUR_JWT_TOKEN>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Luxury Apartment\",\n  \"description\": \"A beautifully updated apartment in the city center.\",\n  \"price\": 550000,\n  \"propertyExtn\": {\n    \"additionalFeatures\": [\"Pool\", \"Gym\", \"Security\"],\n    \"virtualTourUrl\": \"https://example.com/updatedvirtualtour\"\n  },\n  \"version\": <CURRENT_VERSION_NUMBER>\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/property/<PROPERTY_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"property",
+								"<PROPERTY_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <YOUR_JWT_TOKEN>"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5001/api/property/<PROPERTY_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"property",
+								"<PROPERTY_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5001",
+			"type": "string"
+		},
+		{
+			"key": "BearerToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc4Zjc3YWY4MmU0MWVhNWE1NmJmNjgiLCJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE3MzU5ODEwMjIsImV4cCI6MTczNjA2NzQyMn0.udEyURGpxtUqHWH07iGqWZjwdpSrQPf36pcE2v3R2d4",
+			"type": "string"
+		}
+	]
+}

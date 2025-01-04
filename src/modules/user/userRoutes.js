@@ -4,8 +4,6 @@ const router = express.Router();
 const userController = require('./userController');
 const authMiddleware = require('../../middlewares/authMiddleware');
 const roleMiddleware = require('../../middlewares/roleMiddleware');
-const { combinedUserSchema } = require('./userValidation');
-const validateRequest = require('../../middlewares/validateMiddleware');
 
 // POST /api/user
 router.post(
