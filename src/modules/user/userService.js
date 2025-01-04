@@ -30,7 +30,6 @@ class UserService extends BaseService {
         return newUser;
     }
 
-
     async login(email, password) {
         const user = await User.findOne({ email });
         if (!user) {
@@ -42,19 +41,6 @@ class UserService extends BaseService {
             throw new Error('Invalid credentials');
         }
         return user;
-    }
-
-    async listUsers(queryParams) {
-        const { createFilterFromQuery } = require('../../utils/filterUtil');
-        const { getPaginatedAndFilteredData } = require('../../utils/paginationUtils');
-
-        const filter = createFilterFromQuery(User, queryParams);
-        const page = queryParams.page;
-        const rows = queryParams.rows;
-
-        const result = await getPaginatedAndFilteredData(User, filter, page, rows);
-
-        return result;
     }
 
     async getUserById(id) {
@@ -106,7 +92,6 @@ class UserService extends BaseService {
 
         return updatedUser;
     }
-
 
     async deleteUser(id) {
         const deletedUser = await this.deleteById(id);

@@ -4,27 +4,30 @@ class BaseService {
         this.Model = Model;
     }
 
-    // CREATE
     async create(data) {
         return this.Model.create(data);
     }
 
-    // READ - list
-    async list(filter = {}, options = {}) {
-        return this.Model.find(filter, null, options);
+    async list(queryParams) {
+        const { createFilterFromQuery } = require('../utils/filterUtil');
+        const { getPaginatedAndFilteredData } = require('../utils/paginationUtils');
+        const filter = createFilterFromQuery(this.Model, queryParams);
+        const page = queryParams.page;
+        const rows = queryParams.rows;
+
+        const result = await getPaginatedAndFilteredData(this.Model, filter, page, rows);
+
+        return result;
     }
 
-    // READ - single
     async getById(id) {
         return this.Model.findById(id);
     }
 
-    // UPDATE
     async updateById(id, data) {
         return this.Model.findByIdAndUpdate(id, data, { new: true });
     }
 
-    // DELETE
     async deleteById(id) {
         return this.Model.findByIdAndDelete(id);
     }

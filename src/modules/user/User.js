@@ -1,7 +1,5 @@
-// models/User.js
 const mongoose = require('mongoose');
 
-// Sub-schema for phoneNo
 const phoneSchema = new mongoose.Schema(
     {
         countryCode: { type: Number, required: true, default: 91 },
@@ -10,7 +8,6 @@ const phoneSchema = new mongoose.Schema(
     { _id: false }
 );
 
-// Sub-schema for address
 const addressSchema = new mongoose.Schema(
     {
         city: { type: String },
