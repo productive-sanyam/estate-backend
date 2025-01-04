@@ -1,29 +1,23 @@
-// File: routes/userRoutes.js
-
+// routes/userRoutes.js
 const express = require('express');
-const {
-    createUser,
-    getUsers,
-    getUserById,
-    updateUser,
-    deleteUser,
-} = require('../controllers//user/userController');
-
 const router = express.Router();
+const userController = require('../controllers/userController');
+const authMiddleware = require('../middlewares/authMiddleware');
+const roleMiddleware = require('../middlewares/roleMiddleware');
 
-// Create a new user
-router.post('/', createUser);
+// Only users with role 'ADMIN' or 'SUPERADMIN' can create new users
+router.post('/', authMiddleware, roleMiddleware(['ADMIN', 'SUPERADMIN']), userController.createUser);
 
-// Get all users (supports pagination & filter)
-router.get('/', getUsers);
+// Everyone with a valid token can see user listing
+router.get('/', authMiddleware, userController.getUsers);
 
-// Get a single user by ID
-router.get('/:id', getUserById);
+// Single user detail => returns user + extn
+router.get('/:id', authMiddleware, userController.getUserById);
 
-// Update a user by ID
-router.put('/:id', updateUser);
+// Update => require concurrency (version) & role
+router.put('/:id', authMiddleware, roleMiddleware(['ADMIN', 'SUPERADMIN']), userController.updateUser);
 
-// Delete a user by ID
-router.delete('/:id', deleteUser);
+// Delete => admin or superadmin
+router.delete('/:id', authMiddleware, roleMiddleware(['ADMIN', 'SUPERADMIN']), userController.deleteUser);
 
 module.exports = router;

@@ -1,9 +1,9 @@
+// utils/filterUtil.js
 /**
  * Automatically create a Mongoose filter object from query parameters
  * by checking if each query param corresponds to a field in the Model's schema.
  * For string fields, it does a case-insensitive partial match using RegExp.
  */
-
 function createFilterFromQuery(Model, query) {
     const filter = {};
     const schemaFields = Object.keys(Model.schema.paths);

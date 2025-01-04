@@ -1,9 +1,9 @@
+// routes/authRoutes.js
 const express = require('express');
-const { loginUser } = require('../controllers/auth/authController');
-
 const router = express.Router();
+const authController = require('../controllers/authController');
 
-// Login Route
-router.post('/login', loginUser);
+// Only a login route is provided (no self-registration)
+router.post('/login', authController.login);
 
 module.exports = router;
