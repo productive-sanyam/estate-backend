@@ -1,9 +1,9 @@
 // routes/roleRoutes.js
 const express = require('express');
 const router = express.Router();
-const roleController = require('../controllers/roleController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const roleMiddleware = require('../middlewares/roleMiddleware');
+const roleController = require('./roleController');
+const authMiddleware = require('./../../middlewares/authMiddleware');
+const roleMiddleware = require('./../../middlewares/roleMiddleware');
 
 // Suppose only 'SUPERADMIN' can manage roles
 router.post('/', authMiddleware, roleMiddleware(['SUPERADMIN']), roleController.createRole);

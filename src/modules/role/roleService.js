@@ -1,6 +1,6 @@
 // services/roleService.js
-const BaseService = require('./baseService');
-const Role = require('../models/Role');
+const BaseService = require('./../../services/baseService');
+const Role = require('./Role');
 
 class RoleService extends BaseService {
     // Create a new role

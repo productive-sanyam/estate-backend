@@ -2,9 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
-const authRoutes = require('./authRoutes');
-const userRoutes = require('./userRoutes');
-const roleRoutes = require('./roleRoutes');
+const authRoutes = require('./../modules/auth/authRoutes');
+const userRoutes = require('./../modules/user/userRoutes'); 
+const roleRoutes = require('./../modules/role/roleRoutes');
 
 router.get('/', (req, res) => {
     res.send('API is running...');

@@ -1,9 +1,9 @@
 // routes/userRoutes.js
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const roleMiddleware = require('../middlewares/roleMiddleware');
+const userController = require('./userController');
+const authMiddleware = require('./../../middlewares/authMiddleware');
+const roleMiddleware = require('./../../middlewares/roleMiddleware');
 
 // Only users with role 'ADMIN' or 'SUPERADMIN' can create new users
 router.post('/', authMiddleware, roleMiddleware(['ADMIN', 'SUPERADMIN']), userController.createUser);

@@ -1,6 +1,6 @@
 // controllers/roleController.js
-const roleService = require('../services/roleService');
-const Role = require('../models/Role');
+const roleService = require('./roleService');
+const Role = require('./Role');
 
 const createRole = async (req, res) => {
     try {

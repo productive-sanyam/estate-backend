@@ -1,5 +1,5 @@
 // controllers/userController.js
-const userService = require('../services/userService');
+const userService = require('./userService');
 
 /**
  * Admin-only endpoint to create a user (and possibly userExtn).

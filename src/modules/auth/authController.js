@@ -1,11 +1,6 @@
-// controllers/authController.js
-const userService = require('../services/userService');
-const { generateToken } = require('../config/auth');
+const userService = require('../user/userService');
+const { generateToken } = require('../../config/auth');
 
-/**
- * We only allow login for existing users.
- * No direct "register" route because only admin can create user.
- */
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
