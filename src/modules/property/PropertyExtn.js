@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const propertyExtnSchema = new mongoose.Schema(
     {
@@ -12,8 +13,8 @@ const propertyExtnSchema = new mongoose.Schema(
     {
         versionKey: 'version',
         optimisticConcurrency: true,
-        timestamps: {
-            currentTime: () => Math.floor(Date.now() / 1000)
+          timestamps: {
+            currentTime: () => moment()
         }
     }
 );

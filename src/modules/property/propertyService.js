@@ -1,4 +1,4 @@
-const BaseService = require('./baseService');
+const BaseService = require('./../../services/baseService');
 const Property = require('./Property');
 const PropertyExtn = require('./PropertyExtn');
 
@@ -7,22 +7,20 @@ class PropertyService extends BaseService {
         super(Property, PropertyExtn);
     }
 
-    async createPropertyAndExtn(propertyData, createdBy) {
+    async createPropertyAndExtn(propertyData) {
+        const {propertyExtn } = propertyData;
+
         const existingProperty = await Property.findOne({ title: propertyData.title, address: propertyData.address });
         if (existingProperty) {
             throw new Error('Property with the same title and address already exists.');
         }
 
-        const newProperty = await this.create({
-            ...propertyData,
-            createdBy: createdBy,
-            updatedBy: createdBy
-        });
+        const newProperty = await this.create(propertyData);
 
-        if (propertyData.propertyExtn) {
+        if (propertyExtn) {
             const extnData = {
                 _id: newProperty._id,
-                ...propertyData.propertyExtn
+                ...propertyExtn
             };
             await PropertyExtn.create(extnData);
         }
@@ -32,7 +30,7 @@ class PropertyService extends BaseService {
     }
 
     async getPropertyById(id) {
-        const property = await Property.findById(id).populate('createdBy').populate('updatedBy').populate('assignedTo').lean();
+        const property = await Property.findById(id).lean();
         if (!property) {
             return null;
         }

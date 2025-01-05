@@ -5,7 +5,7 @@ const createProperty = async (req, res) => {
         const payload = {
             ...req.body,
             createdBy: req.user.userId,
-            propertyExtn: req.body.propertyExtn
+            updatedBy: req.user.userId
         };
         const property = await propertyService.createPropertyAndExtn(payload, req.user.userId);
         return res.status(201).json(property);

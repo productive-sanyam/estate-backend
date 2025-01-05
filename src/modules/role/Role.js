@@ -1,5 +1,6 @@
 // models/Role.js
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const roleSchema = new mongoose.Schema(
     {
@@ -11,8 +12,8 @@ const roleSchema = new mongoose.Schema(
         updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
     },
     {
-        timestamps: {
-            currentTime: () => Math.floor(Date.now() / 1000)
+          timestamps: {
+            currentTime: () => moment()
         },
         versionKey: 'version'
     }

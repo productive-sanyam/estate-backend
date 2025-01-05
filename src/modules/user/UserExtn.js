@@ -1,5 +1,6 @@
 // models/UserExtn.js
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const userExtnSchema = new mongoose.Schema(
     {
@@ -13,8 +14,8 @@ const userExtnSchema = new mongoose.Schema(
     {
         versionKey: 'version',
         optimisticConcurrency: true,
-        timestamps: {
-            currentTime: () => Math.floor(Date.now() / 1000)
+          timestamps: {
+            currentTime: () => moment()
         }
     }
 );

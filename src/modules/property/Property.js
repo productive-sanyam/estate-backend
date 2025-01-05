@@ -1,27 +1,23 @@
 const mongoose = require('mongoose');
+const addressSchema = require('../../models/AddressSchema');
+const moment = require('moment');
 
 const propertySchema = new mongoose.Schema(
     {
-        title: { type: String, required: true, maxlength: 200 }, 
+        title: { type: String, maxlength: 200 }, 
         description: { type: String, maxlength: 500 }, 
-        price: { type: Number, required: true },
-        size: { type: Number, required: true },
+        price: { type: Number,  },
+        size: { type: Number,  },
         status: {
             type: String,
             enum: ['available', 'under_review', 'sold', 'rented', 'inactive'],
             default: 'available',
         }, 
         tags: [{ type: String, maxlength: 50 }],
-        location: {
-            address: { type: String, required: true, maxlength: 200 },
-            city: { type: String, required: true, maxlength: 100 },
-            state: { type: String, required: true, maxlength: 100 },
-            zipCode: { type: String, required: true, maxlength: 20 },
-            country: { type: String, required: true, maxlength: 100 },
-        },
-        bedrooms: { type: Number, required: true },
-        bathrooms: { type: Number, required: true },
-        sqft: { type: Number, required: true },
+        location: addressSchema,
+        bedrooms: { type: Number,  },
+        bathrooms: { type: Number,  },
+        sqft: { type: Number, required: false },
         images: [{ type: String }],
         createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -30,8 +26,8 @@ const propertySchema = new mongoose.Schema(
     {
         versionKey: 'version',
         optimisticConcurrency: true,
-        timestamps: {
-            currentTime: () => Math.floor(Date.now() / 1000)
+          timestamps: {
+            currentTime: () => moment()
         }
     }
 );

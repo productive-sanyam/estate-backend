@@ -1,21 +1,11 @@
 const mongoose = require('mongoose');
+const addressSchema = require('../../models/AddressSchema');
+const moment = require('moment');
 
 const phoneSchema = new mongoose.Schema(
     {
         countryCode: { type: Number, required: true, default: 91 },
         phone: { type: Number, required: true }
-    },
-    { _id: false }
-);
-
-const addressSchema = new mongoose.Schema(
-    {
-        city: { type: String },
-        state: { type: String },
-        country: { type: String },
-        pinCode: { type: String },
-        street: { type: String },
-        buildingNumber: { type: String }
     },
     { _id: false }
 );
@@ -38,7 +28,7 @@ const userSchema = new mongoose.Schema(
         versionKey: 'version',
         optimisticConcurrency: true,
         timestamps: {
-            currentTime: () => Math.floor(Date.now() / 1000)
+            currentTime: () => moment()
         }
     }
 );
