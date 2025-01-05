@@ -57,10 +57,30 @@ const deleteProperty = async (req, res) => {
     }
 };
 
+const getPropertiesForCustomer = async (req, res) => {
+    try {
+        // The token is from the "customer" perspective.
+        // We might decode the user or customer from the token. 
+        // Suppose `req.customer.id` is set in a "customerAuthMiddleware"
+        // Or we might pass the customerId in route param or query param. 
+        const customerId = req.customer ? req.customer.id : req.query.customerId;
+        if (!customerId) {
+            return res.status(400).json({ error: 'Missing customer identifier' });
+        }
+
+        const properties = await propertyService.getPropertiesForCustomer(customerId, req.query);
+        return res.status(200).json(properties);
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+};
+
+
 module.exports = {
     createProperty,
     getProperties,
     getPropertyById,
     updateProperty,
-    deleteProperty
+    deleteProperty,
+    getPropertiesForCustomer
 };

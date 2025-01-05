@@ -14,6 +14,11 @@ const propertySchema = new mongoose.Schema(
             default: 'available',
         }, 
         tags: [{ type: String, maxlength: 50 }],
+        visibleToAll: {
+            type: Boolean,
+            default: false,
+        },
+        assignedCustomers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Customer' }],
         location: addressSchema,
         bedrooms: { type: Number,  },
         bathrooms: { type: Number,  },

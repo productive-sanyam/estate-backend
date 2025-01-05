@@ -73,6 +73,29 @@ class PropertyService extends BaseService {
         }
         return property;
     }
+
+    /**
+     * Get properties that are either assigned to a particular customer or visible to all
+     */
+    async getPropertiesForCustomer(customerId, queryParams) {
+        // Build up the filter
+        // ( visibleToAll == true ) OR ( assignedCustomers contains customerId )
+        const filter = {
+            $or: [
+                { visibleToAll: true },
+                { assignedCustomers: customerId }
+            ]
+        };
+
+        // Reuse your pagination or filtering logic if you like:
+        const { page, rows, sortBy, sortAsc } = queryParams;
+        return this.MainModel.find(filter)
+            .sort({ [sortBy || 'createdAt']: sortAsc === 'true' ? 1 : -1 })
+            .skip(((page || 1) - 1) * (rows || 5))
+            .limit(rows == -1 ? 0 : (rows || 5))
+            .exec();
+    }
+    
 }
 
 module.exports = new PropertyService();
