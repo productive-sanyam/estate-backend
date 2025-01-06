@@ -1,4 +1,5 @@
 const propertyService = require('./propertyService');
+const propertyStatsService = require('./propertyStatsService');
 
 const createProperty = async (req, res) => {
     try {
@@ -76,11 +77,43 @@ const getPropertiesForCustomer = async (req, res) => {
 };
 
 
+/**
+ * @desc Handles statistics requests for properties
+ * @route POST /api/property/stats
+ * @access Protected (ADMIN, MANAGER)
+ *
+ * @body {
+ *   unwind: String (optional),
+ *   groupBy: { alias: fieldName, ... },
+ *   sum: String (fieldName to sum),
+ *   avg: String (fieldName to average),
+ *   inFilters: { fieldName: [values], ... },
+ *   notInFilters: { fieldName: [values], ... },
+ *   btwFilters: { fieldName: [min, max], ... },
+ *   existsFilter: { fieldName: Boolean, ... },
+ *   filters: { fieldName: value, ... },
+ *   ltFilters: { fieldName: value, ... },
+ *   gtFilters: { fieldName: value, ... },
+ *   caseIgnoreFilters: { fieldName: value, ... }
+ * }
+ */
+const getPropertyStats = async (req, res) => {
+    try {
+        const statsRequest = req.body;
+        const stats = await propertyStatsService.generateStats(statsRequest);
+        return res.status(200).json(stats);
+    } catch (error) {
+        console.error('Error generating property statistics:', error);
+        return res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createProperty,
     getProperties,
     getPropertyById,
     updateProperty,
     deleteProperty,
-    getPropertiesForCustomer
+    getPropertiesForCustomer,
+    getPropertyStats
 };

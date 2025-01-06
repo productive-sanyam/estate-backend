@@ -26,7 +26,14 @@ const propertySchema = new mongoose.Schema(
         images: [{ type: String }],
         createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        assignedTo: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+        assignedTo: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        views: { type: Number, default: 0 },
+        likes: { type: Number, default: 0 },
+        trafficSources: [{
+            source: { type: String, maxlength: 100 },
+            count: { type: Number, default: 0 },
+        }],
+        lastViewed: { type: Date },
     },
     {
         versionKey: 'version',
